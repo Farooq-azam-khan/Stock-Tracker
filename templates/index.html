@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Index
+{% endblock %}
+
+{% block main %}
+<form action="{{ url_for('index') }}" method="post">
+<fieldset>
+<div class='container'>
+<h1>PORTFOLIO</h1>
+<table class='table table-striped'>
+    <thead><tr>
+        <th>Stock</th>
+        <th>Symbol</th>
+        <th>Price</th>
+        <th>Shares</th>
+        <th>Action</th>
+        <th>Total Value (Price x Shares)</th>
+
+    </tr></thead>
+    <tbody>
+    {% for stock in stocks %}
+    <tr>
+        <td>{{ stock.name }}</td>
+        <td>{{ stock.symbol }}</td>
+        <td>{{'%0.2f' % stock.price|float}}</td>
+        <td>{{'%0.2f' % stock|float}}</td>
+        <td><a href={{ url_for("sell") }}>sell</a></td>
+        <td>{{'%0.2f' % stock.total|float}}</td>
+    </tr>
+    {% endfor %}
+
+    <tr>
+        <th>User's Cash</th>
+        <td>{{'%0.2f' % user_cash|float}}</td>
+
+        <th>Grand Total (user cash + total value)</th>
+        <td>{{'%0.2f' % grand_total|float}}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    </tbody>
+</table>
+</div>
+</fieldset>
+</form>
+{% endblock %}
